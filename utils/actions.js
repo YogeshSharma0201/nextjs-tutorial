@@ -57,3 +57,17 @@ export const editTask = async (formData) => {
   // another option, setup the editTask in the component directly
   redirect("/tasks");
 };
+
+export const createTaskCustom = async (formData) => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  const content = formData.get("content");
+  // some validation here
+
+  await prisma.task.create({
+    data: {
+      content,
+    },
+  });
+  // revalidate path
+  revalidatePath("/tasks");
+};
